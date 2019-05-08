@@ -14,6 +14,7 @@ output:
 # load packages
 library(tidyverse)
 library(magrittr)
+library(gapminder)
 ```
 
 ## Part A: Foundations
@@ -63,11 +64,27 @@ mtcars %>%
 ### 3. Write a function that takes two vectors of the same length and returns the total number of instances where the value is NA for both vectors. For example, given the following two vectors (Cam)
 
 ```{r b3_example}
-c(1, NA, NA, 3, 3, 9, NA)
-c(NA, 3, NA, 4, NA, NA, NA)
+x <- c(1, NA, NA, 3, 3, 9, NA)
+y <- c(NA, 3, NA, 4, NA, NA, NA)
 ```
 
 **The function should return a value of 2, because the vectors are both NA at the third and seventh locations. Provide at least one additional test that the function works as expected.**
+
+```{r b3_answer}
+# create the function
+count_double_nas <- function(v1, v2) {
+  sum(is.na(v1) * is.na(v2))
+}
+
+# test the function
+count_double_nas(x, y)
+
+# test the function with new vectors
+z <- c(2, 2, 3, NA, NA, NA, 3, 3, 9, NA, NA)
+a <- c(7, NA, 8, NA, NA, NA, 8, 8, 1, 2, NA)
+
+count_double_nas(z, a)
+```
 
 ### 4. Turn the following into functions. Make sure to give them meaningful names. Test them out to make sure they provide the expected output. (Ash)
 
@@ -82,4 +99,45 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 
 ## 5. Write a function that takes a data frame as its input and returns a data frame with only the numeric columns. (Cam)
 
+```{r b5_answer}
+# create the function
+num_cols_only <- function(data) {
+  # check if data is a dataframe 
+  if (!is.data.frame(data)) {
+    stop("Data is not of type dataframe.")
+  # if the data is a dataframe stop the function
+  } else {
+    return(data[, map_lgl(gapminder, is.numeric)])
+  }
+}
+
+# test the function with a dataframe
+num_cols_only(gapminder)
+
+# test the function wit a non-dataframe
+num_cols_only(x)
+```
+
 ## 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column. (Cam)
+
+```{r b5_answer}
+# create the function
+describe_num_cols <- function(data) {
+  # identify only the numeric columns
+  data_num_cols <- num_cols_only(data)
+  # calculte column means and sds
+  data_means    <- map_dbl(data_num_cols, mean)
+  data_sds      <- map_dbl(data_num_cols, sd)
+  # combine the means and sds 
+  data.frame(rbind(data_means, data_sds))
+}
+
+# test the function with a dataframe
+describe_num_cols(gapminder)
+
+# test the function with a non-dataframe
+describe_num_cols(x)
+
+# ensure the output is a dataframe
+is.data.frame(describe_num_cols(gapminder))
+```

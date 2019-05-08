@@ -28,14 +28,13 @@ library(gapminder)
  + Environment: Our global workspace
  
 
-### 2. Describe three different ways functions can be stored/applied and an example of when you might want to use each version. (Ash)
+### 2. Describe three different ways functions can be stored/applied and an example of when you might want to use each version. (Ash/Cam)
 
-+ Infix functions: 
++ As an object: If you want the function to be saved to your environment for future use, you can save the function as an object. For example, if you create a function to flip the sign of a number (e.g., `function(x) {x * -1}`) you could save it as `flip_sign` and use it throughout your script.
 
-+ Anonymous functions:
++ Anonymous functions: If the function is for single use within a looop, you could create an anonymous function. The anonymous function will only exist in the loops environment. Using the above example, the function inside `map(my_vector, function(x) x * -1)` will only exist inside `map`.
 
-+ Storing various functions within a list:
-
++ Storing various functions within a list: If you have multiple similar functions or you want to invoke multiple functions in a loop, you could store the functions as a list. For example, if you had two functions--`flip_sign_1 <- function(x) {x * -1}` and `flip_sign_2 <- function(x) {x * -2}`--you could store them in a list (e.g., `flip_sign <- list(flip_sign_1, flip_sign_2)`) and call them as needed (e.g., `flip_sign[[1]]` or `flip_sign[[2]]`).
 
 ## Part B: Applied practice
 

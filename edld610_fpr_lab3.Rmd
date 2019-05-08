@@ -11,6 +11,7 @@ output:
 # load packages
 library(tidyverse)
 library(magrittr)
+library(gapminder)
 ```
 
 ## Part A: Foundations
@@ -55,7 +56,6 @@ z <- c(2, 2, 3, NA, NA, NA, 3, 3, 9, NA, NA)
 a <- c(7, NA, 8, NA, NA, NA, 8, 8, 1, 2, NA)
 
 count_double_nas(z, a)
-
 ```
 
 ### 4. Turn the following into functions. Make sure to give them meaningful names. Test them out to make sure they provide the expected output. (Ash)
@@ -70,5 +70,22 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 ```
 
 ## 5. Write a function that takes a data frame as its input and returns a data frame with only the numeric columns. (Cam)
+
+```{r b5_answer}
+# create the function
+num_cols_only <- function(data) {
+  if (is.data.frame(data)) {
+    data[, map_lgl(gapminder, is.numeric)]
+  } else {
+    stop("Data is not of type dataframe.")
+  }
+}
+
+# test the function with a dataframe
+num_cols_only(gapminder)
+
+# test the function wit a non-dataframe
+num_cols_only(x)
+```
 
 ## 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column. (Cam)

@@ -4,7 +4,10 @@ author: "Cameron Kay & Ashley Miller"
 date: "5/8/2019"
 output: 
   html_document:
-    spacelab
+    theme: spacelab
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
 ---
 
 ```{r setup}
@@ -17,7 +20,21 @@ library(magrittr)
 
 ### 1. Briefly name and describe the three fundamental components of a function. (Ash)
 
+ + Body: The code supplied to the function that produces the output
+ 
+ + Formals: The arguments supplied to the funciton
+ 
+ + Environment: Our global workspace
+ 
+
 ### 2. Describe three different ways functions can be stored/applied and an example of when you might want to use each version. (Ash)
+
++ Infix functions: 
+
++ Anonymous functions:
+
++ Storing various functions within a list:
+
 
 ## Part B: Applied practice
 
@@ -27,8 +44,19 @@ $(∑_{i=1}^nx_i) / n$
 
 **where $x_i$ represents each element in the mean and $n$ represents the total number of elements. In other words, sum and divide by the number included.**
 
-
 ### 1. Write a function to calculate the mean that removes missing data before conducting the calculation. You may not use base::mean or any similar function that conducts a mean calculation. (Ash)
+
+```{r partb_1_ash}
+
+data <- mtcars
+
+mtcars %>%
+ mutate(mean = sum(mtcars$mpg)/length(mtcars$mpg))
+
+
+
+```
+
 
 ### 2. Test your function to make sure it (a) provides the expected results, and(b) gives identical output to base::mean when na.rm = TRUE. (Ash)
 

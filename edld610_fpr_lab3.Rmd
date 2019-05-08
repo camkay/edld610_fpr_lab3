@@ -1,0 +1,57 @@
+---
+title: "Lab 3 - Writing Functions 1"
+author: "Cameron Kay & Ashley Miller"
+date: "5/8/2019"
+output: 
+  html_document:
+    spacelab
+---
+
+```{r setup}
+# load packages
+library(tidyverse)
+library(magrittr)
+```
+
+## Part A: Foundations
+
+### 1. Briefly name and describe the three fundamental components of a function.
+
+### 2. Describe three different ways functions can be stored/applied and an example of when you might want to use each version.
+
+## Part B: Applied practice
+
+**The mean is defined as**
+
+$(∑_{i=1}^nx_i) / n$
+
+**where $x_i$ represents each element in the mean and $n$ represents the total number of elements. In other words, sum and divide by the number included.**
+
+
+### 1. Write a function to calculate the mean that removes missing data before conducting the calculation. You may not use base::mean or any similar function that conducts a mean calculation.
+
+### 2. Test your function to make sure it (a) provides the expected results, and(b) gives identical output to base::mean when na.rm = TRUE.
+
+### 3. Write a function that takes two vectors of the same length and returns the total number of instances where the value is NA for both vectors. For example, given the following two vectors
+
+```{r b3_example}
+c(1, NA, NA, 3, 3, 9, NA)
+c(NA, 3, NA, 4, NA, NA, NA)
+```
+
+**The function should return a value of 2, because the vectors are both NA at the third and seventh locations. Provide at least one additional test that the function works as expected.**
+
+### 4. Turn the following into functions. Make sure to give them meaningful names. Test them out to make sure they provide the expected output.
+
+```{r b4_example}
+mean(is.na(airquality$Ozone))
+
+purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
+
+(mtcars$mpg - mean(mtcars$mpg, na.rm = TRUE)) / 
+  sd(mtcars$mpg, na.rm = TRUE) 
+```
+
+## 5. Write a function that takes a data frame as its input and returns a data frame with only the numeric columns.
+
+## 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column.

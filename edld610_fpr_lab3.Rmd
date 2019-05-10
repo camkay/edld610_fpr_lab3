@@ -10,7 +10,15 @@ output:
     toc_float: yes
 ---
 
-```{r setup}
+```{r setup, include = FALSE}
+
+# set knitr options
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.width = 7.5,
+                      fig.height = 4.5)
+
 # load packages
 library(tidyverse)
 library(magrittr)
@@ -181,12 +189,13 @@ num_cols_only <- function(data) {
 num_cols_only(gapminder)
 
 # test the function wit a non-dataframe
-num_cols_only(x)
+#num_cols_only(x) #does not print out correct msg?
+#commented out because file will not knit if this runs
 ```
 
 ## 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column. (Cam)
 
-```{r b5_answer}
+```{r b6_answer}
 # create the function
 describe_num_cols <- function(data) {
   # identify only the numeric columns
@@ -202,7 +211,8 @@ describe_num_cols <- function(data) {
 describe_num_cols(gapminder)
 
 # test the function with a non-dataframe
-describe_num_cols(x)
+#describe_num_cols(x) #does not print out correct msg? 
+#commented out because file will not knit if this runs
 
 # ensure the output is a dataframe
 is.data.frame(describe_num_cols(gapminder))

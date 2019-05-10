@@ -49,17 +49,33 @@ $(∑_{i=1}^nx_i) / n$
 
 ```{r partb_1_ash}
 
-data <- mtcars
-
-mtcars %>%
- mutate(mean = sum(mtcars$mpg)/length(mtcars$mpg))
-
-
+my_mean <- function(x) {
+   z <- na.omit(x)
+   z_sum <- sum(z)
+   z_length <- length(z)
+   mean <- z_sum / z_length
+   mean
+}
 
 ```
 
-
 ### 2. Test your function to make sure it (a) provides the expected results, and(b) gives identical output to base::mean when na.rm = TRUE. (Ash)
+
+```{r partb_number2_ash}
+
+my_mean(airquality$Ozone) #my function
+
+mean(airquality$Ozone, na.rm = TRUE) #base function
+
+# create vector with missing data
+
+test <- c(1, 2, 3, 4, 5, NA, 8)
+
+my_mean(test) #my function
+
+mean(test, na.rm = TRUE) #base method
+
+```
 
 ### 3. Write a function that takes two vectors of the same length and returns the total number of instances where the value is NA for both vectors. For example, given the following two vectors (Cam)
 
@@ -95,6 +111,56 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 
 (mtcars$mpg - mean(mtcars$mpg, na.rm = TRUE)) / 
   sd(mtcars$mpg, na.rm = TRUE) 
+```
+
+Function 1:
+
+```{r partb_num4_1_ash}
+
+mean_missing <- function(x) {
+   missing <- is.na(x)
+   mean_missing <- mean(missing)
+   mean_missing
+}
+
+mean_missing(airquality$Ozone)
+
+mean(is.na(airquality$Ozone))
+
+```
+
+Function 2:
+
+```{r partb_num4_2_ash}
+
+proportion <- function(x, y) {
+  z <- split(x[, y], x[, y])
+  z_length <- lapply(z, length)
+  prop <- map(z_length, ~(.x/length(x[, y])))
+  mean_prop <- map(prop, ~mean(.x))
+  mean_prop
+}
+
+proportion(mtcars, "cyl")
+
+purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
+
+```
+
+Function 3:
+
+```{r partb_num4_3_ash}
+
+standardize <- function(x) {
+  z <- (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE) 
+  z
+}
+
+standardize(mtcars$mpg)
+
+(mtcars$mpg - mean(mtcars$mpg, na.rm = TRUE)) / 
+  sd(mtcars$mpg, na.rm = TRUE) 
+
 ```
 
 ## 5. Write a function that takes a data frame as its input and returns a data frame with only the numeric columns. (Cam)

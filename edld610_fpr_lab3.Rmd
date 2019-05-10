@@ -25,9 +25,9 @@ library(magrittr)
 library(gapminder)
 ```
 
-## Part A: Foundations
+### Part A: Foundations
 
-### 1. Briefly name and describe the three fundamental components of a function. (Ash)
+#### 1. Briefly name and describe the three fundamental components of a function. (Ash)
 
  + Body: The code supplied to the function that produces the output
  
@@ -36,7 +36,7 @@ library(gapminder)
  + Environment: Our global workspace
  
 
-### 2. Describe three different ways functions can be stored/applied and an example of when you might want to use each version. (Ash)
+#### 2. Describe three different ways functions can be stored/applied and an example of when you might want to use each version. (Ash)
 
 + Infix functions: 
 
@@ -45,7 +45,7 @@ library(gapminder)
 + Storing various functions within a list:
 
 
-## Part B: Applied practice
+### Part B: Applied practice
 
 **The mean is defined as**
 
@@ -53,7 +53,7 @@ $(∑_{i=1}^nx_i) / n$
 
 **where $x_i$ represents each element in the mean and $n$ represents the total number of elements. In other words, sum and divide by the number included.**
 
-### 1. Write a function to calculate the mean that removes missing data before conducting the calculation. You may not use base::mean or any similar function that conducts a mean calculation. (Ash)
+#### 1. Write a function to calculate the mean that removes missing data before conducting the calculation. You may not use base::mean or any similar function that conducts a mean calculation. (Ash)
 
 ```{r partb_1_ash}
 
@@ -67,7 +67,7 @@ my_mean <- function(x) {
 
 ```
 
-### 2. Test your function to make sure it (a) provides the expected results, and(b) gives identical output to base::mean when na.rm = TRUE. (Ash)
+#### 2. Test your function to make sure it (a) provides the expected results, and(b) gives identical output to base::mean when na.rm = TRUE. (Ash)
 
 ```{r partb_number2_ash}
 
@@ -85,7 +85,7 @@ mean(test, na.rm = TRUE) #base method
 
 ```
 
-### 3. Write a function that takes two vectors of the same length and returns the total number of instances where the value is NA for both vectors. For example, given the following two vectors (Cam)
+#### 3. Write a function that takes two vectors of the same length and returns the total number of instances where the value is NA for both vectors. For example, given the following two vectors (Cam)
 
 ```{r b3_example}
 x <- c(1, NA, NA, 3, 3, 9, NA)
@@ -110,9 +110,9 @@ a <- c(7, NA, 8, NA, NA, NA, 8, 8, 1, 2, NA)
 count_double_nas(z, a)
 ```
 
-### 4. Turn the following into functions. Make sure to give them meaningful names. Test them out to make sure they provide the expected output. (Ash)
+#### 4. Turn the following into functions. Make sure to give them meaningful names. Test them out to make sure they provide the expected output. (Ash)
 
-```{r b4_example}
+```{r b4_example, eval=FALSE}
 mean(is.na(airquality$Ozone))
 
 purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
@@ -121,7 +121,7 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
   sd(mtcars$mpg, na.rm = TRUE) 
 ```
 
-Function 1:
+**Function 1:**
 
 ```{r partb_num4_1_ash}
 
@@ -137,7 +137,7 @@ mean(is.na(airquality$Ozone))
 
 ```
 
-Function 2:
+**Function 2:**
 
 ```{r partb_num4_2_ash}
 
@@ -145,7 +145,7 @@ proportion <- function(x, y) {
   z <- split(x[, y], x[, y])
   z_length <- lapply(z, length)
   prop <- map(z_length, ~(.x/length(x[, y])))
-  mean_prop <- map(prop, ~mean(.x))
+  mean_prop <- map_dbl(prop, ~mean(.x))
   mean_prop
 }
 
@@ -155,7 +155,7 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 
 ```
 
-Function 3:
+**Function 3:**
 
 ```{r partb_num4_3_ash}
 
@@ -171,7 +171,7 @@ standardize(mtcars$mpg)
 
 ```
 
-## 5. Write a function that takes a data frame as its input and returns a data frame with only the numeric columns. (Cam)
+#### 5. Write a function that takes a data frame as its input and returns a data frame with only the numeric columns. (Cam)
 
 ```{r b5_answer}
 # create the function
@@ -193,7 +193,7 @@ num_cols_only(gapminder)
 #commented out because file will not knit if this runs
 ```
 
-## 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column. (Cam)
+#### 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column. (Cam)
 
 ```{r b6_answer}
 # create the function

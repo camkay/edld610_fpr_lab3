@@ -128,15 +128,20 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 **Function 1:**
 
 ```{r partb_num4_1_ash}
-
+# create mean_missing function
 mean_missing <- function(x) {
-   missing <- is.na(x)
-   mean_missing <- mean(missing)
-   mean_missing
+  # evaluate which values are missing
+  missing <- is.na(x)
+  # take the mean of the logical vector
+  mean_missing <- mean(missing)
+  # return the mean
+  mean_missing
 }
 
+# calculate mean missing using create function
 mean_missing(airquality$Ozone)
 
+# compare to the original
 mean(is.na(airquality$Ozone))
 
 ```
@@ -144,17 +149,21 @@ mean(is.na(airquality$Ozone))
 **Function 2:**
 
 ```{r partb_num4_2_ash}
+# create the proportion function
+proportion <- function(column) {
+  # split the column by its unique value
+  column_split <- split(column, column)
+  # find number of each unique value
+  column_split_len <- map_dbl(column_split, length)
+  # calculate proportion of each value
+  map_dbl(column_split_len, ~(.x / length(column)))
 
-proportion <- function(x, y) {
-  z <- split(x[, y], x[, y])
-  z_length <- lapply(z, length)
-  prop <- map(z_length, ~(.x/length(x[, y])))
-  mean_prop <- map_dbl(prop, ~mean(.x))
-  mean_prop
 }
 
-proportion(mtcars, "cyl")
+# calculate proportion for each unique value
+proportion(mtcars$cyl)
 
+# compare to the original function
 purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 
 ```
@@ -162,14 +171,16 @@ purrr::map_dbl(split(mtcars$cyl, mtcars$cyl), length) / length(mtcars$cyl)
 **Function 3:**
 
 ```{r partb_num4_3_ash}
-
-standardize <- function(x) {
-  z <- (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE) 
-  z
+# create the standardize function
+standardize <- function(column) {
+  # subtract the mean of the column and divide by the column's sd
+  (column - mean(column, na.rm = TRUE)) / sd(column, na.rm = TRUE) 
 }
 
+# standardize the column using the new function
 standardize(mtcars$mpg)
 
+# compare to the original function
 (mtcars$mpg - mean(mtcars$mpg, na.rm = TRUE)) / 
   sd(mtcars$mpg, na.rm = TRUE) 
 

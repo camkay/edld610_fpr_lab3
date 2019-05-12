@@ -70,22 +70,23 @@ my_mean <- function(x) {
 
 ```
 
-#### 2. Test your function to make sure it (a) provides the expected results, and(b) gives identical output to base::mean when na.rm = TRUE. (Ash)
+#### 2. Test your function to make sure it (a) provides the expected results, and (b) gives identical output to base::mean when na.rm = TRUE. (Ash)
 
 ```{r partb_number2_ash}
+# test my function on airquality$Ozone
+my_mean(airquality$Ozone)
 
-my_mean(airquality$Ozone) #my function
-
-mean(airquality$Ozone, na.rm = TRUE) #base function
+# test the base::mean function on airquality$Ozone
+mean(airquality$Ozone, na.rm = TRUE)
 
 # create vector with missing data
-
 test <- c(1, 2, 3, 4, 5, NA, 8)
 
-my_mean(test) #my function
+# test my function on the test vector
+my_mean(test)
 
-mean(test, na.rm = TRUE) #base method
-
+# calculate the mean of the test vector using base::mean
+mean(test, na.rm = TRUE)
 ```
 
 #### 3. Write a function that takes two vectors of the same length and returns the total number of instances where the value is NA for both vectors. For example, given the following two vectors (Cam)

@@ -191,11 +191,12 @@ standardize(mtcars$mpg)
 ```{r b5_answer}
 # create the function
 num_cols_only <- function(data) {
-  # check if data is a dataframe 
+  # check if data is a dataframe
   if (!is.data.frame(data)) {
+    # if not, stop the function
     stop("Data is not of type dataframe.")
-  # if the data is a dataframe stop the function
   } else {
+    # return only the numeric columns
     return(data[, map_lgl(gapminder, is.numeric)])
   }
 }
@@ -204,7 +205,7 @@ num_cols_only <- function(data) {
 num_cols_only(gapminder)
 
 # test the function with a non-dataframe
-#num_cols_only(8) #commented out because file will not knit if this runs
+#num_cols_only(8) # commented out because the file will not knit if this runs
 ```
 
 #### 6. Write a function that uses the function you wrote in Question 5, and returns a data frame with the mean and standard deviation of each numeric column. (Cam)
@@ -214,7 +215,7 @@ num_cols_only(gapminder)
 describe_num_cols <- function(data) {
   # identify only the numeric columns
   data_num_cols <- num_cols_only(data)
-  # calculte column means and sds
+  # calculate column means and sds
   data_means    <- map_dbl(data_num_cols, mean)
   data_sds      <- map_dbl(data_num_cols, sd)
   # combine the means and sds 
@@ -224,9 +225,9 @@ describe_num_cols <- function(data) {
 # test the function with a dataframe
 describe_num_cols(gapminder)
 
-# test the function with a non-dataframe
-#num_cols_only(8) #commented out because file will not knit if this runs
-
 # ensure the output is a dataframe
 is.data.frame(describe_num_cols(gapminder))
+
+# test the function with a non-dataframe
+#num_cols_only(8) # commented out because the file will not knit if this runs
 ```
